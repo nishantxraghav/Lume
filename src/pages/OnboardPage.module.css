@@ -1,0 +1,137 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(140deg, #e8f0eb 0%, #f4f1ec 50%, #f0e8df 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #bdd5c533, transparent 70%);
+  top: -150px; right: -100px;
+  filter: blur(60px);
+  animation: floatBg 10s ease-in-out infinite;
+}
+
+.card {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.7);
+  border-radius: 28px;
+  padding: 48px 42px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: fadeUp var(--dur-slow) var(--ease-out) both;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.emoji {
+  font-size: 54px;
+  margin-bottom: 16px;
+  display: block;
+  animation: scaleIn var(--dur-slow) var(--ease-spring) 100ms both;
+  filter: drop-shadow(0 4px 12px rgba(95,143,110,0.2));
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  animation: fadeUp var(--dur-slow) var(--ease-out) 150ms both;
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--text-soft);
+  line-height: 1.65;
+  margin-bottom: 32px;
+  animation: fadeUp var(--dur-slow) var(--ease-out) 200ms both;
+}
+
+.form { text-align: left; display: flex; flex-direction: column; gap: 20px; }
+
+.field { display: flex; flex-direction: column; gap: 7px; }
+
+.field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.field input {
+  padding: 13px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: all var(--dur-fast) ease;
+}
+
+.field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); background: var(--card); }
+
+.goalGrid { display: flex; flex-direction: column; gap: 8px; }
+
+.goalBtn {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text-soft);
+  font-size: 14px;
+  text-align: left;
+  transition: all var(--dur-fast) var(--ease-spring);
+  position: relative;
+  overflow: hidden;
+}
+
+.goalBtn:hover { border-color: var(--accent); color: var(--text); transform: translateX(4px); background: rgba(189,213,197,0.15); }
+
+.goalSelected {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: #2a5438;
+  font-weight: 600;
+  transform: translateX(4px);
+  box-shadow: 0 2px 10px var(--accent-glow);
+}
+
+.errorBox {
+  background: #fff2f2;
+  border: 1px solid #f0c0c0;
+  color: var(--danger);
+  padding: 11px 15px;
+  border-radius: var(--radius-xs);
+  font-size: 13px;
+  animation: scaleIn var(--dur-fast) var(--ease-spring) both;
+}
+
+.btnPrimary {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--accent), #4e7a5d);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  transition: all var(--dur-fast) var(--ease-spring);
+  box-shadow: 0 4px 16px rgba(95,143,110,0.28);
+}
+
+.btnPrimary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 7px 24px rgba(95,143,110,0.38); }
+.btnPrimary:disabled { background: var(--border); color: var(--text-muted); box-shadow: none; cursor: not-allowed; }

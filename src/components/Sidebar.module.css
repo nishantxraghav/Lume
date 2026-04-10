@@ -1,0 +1,249 @@
+.sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--card);
+  border-right: 1.5px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  padding: 22px 12px 20px;
+  z-index: 20;
+  overflow-y: auto;
+  animation: slideInLeft var(--dur-slow) var(--ease-out) both;
+  /* Subtle inner glow */
+  box-shadow: 2px 0 24px rgba(26,23,20,0.04);
+}
+
+/* Subtle noise texture overlay */
+.sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sidebar > * { position: relative; z-index: 1; }
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+  margin-bottom: 24px;
+}
+
+.logoMark {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, #bdd5c5, var(--accent));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 2px 10px var(--accent-glow);
+  transition: transform var(--dur-mid) var(--ease-spring), box-shadow var(--dur-mid) ease;
+}
+
+.logoMark:hover { transform: rotate(-5deg) scale(1.08); box-shadow: 0 4px 16px var(--accent-glow); }
+
+.logo span {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  background: linear-gradient(135deg, var(--text), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* User chip */
+.userChip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--bg), var(--bg2));
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 11px 12px;
+  margin-bottom: 14px;
+  transition: box-shadow var(--dur-mid) ease;
+  animation: fadeUp var(--dur-slow) var(--ease-out) 100ms both;
+}
+
+.userChip:hover { box-shadow: var(--shadow-sm); }
+
+.avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--accent-warm-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid var(--accent-light);
+  transition: border-color var(--dur-mid) ease;
+}
+
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.userChip:hover .avatar { border-color: var(--accent); }
+
+.userInfo { flex: 1; overflow: hidden; }
+
+.userName {
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userSub { font-size: 11px; color: var(--text-soft); margin-top: 1px; }
+
+.logoutBtn {
+  padding: 6px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 15px;
+  transition: all var(--dur-fast) ease;
+  flex-shrink: 0;
+}
+
+.logoutBtn:hover { background: var(--bg2); color: var(--danger); transform: scale(1.1); }
+
+/* Streak card */
+.streakCard {
+  background: linear-gradient(135deg, #fdf0de, #f5ddb8);
+  border: 1px solid #e8c97a44;
+  border-radius: var(--radius-sm);
+  padding: 13px 14px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeUp var(--dur-slow) var(--ease-out) 160ms both;
+  transition: transform var(--dur-mid) var(--ease-spring), box-shadow var(--dur-mid) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.streakCard::after {
+  content: '';
+  position: absolute;
+  top: -50%; right: -10px;
+  width: 80px; height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: skewX(-20deg);
+  animation: shimmerStreak 3s ease infinite;
+}
+
+@keyframes shimmerStreak {
+  0%   { right: 120%; }
+  60%,100% { right: -20%; }
+}
+
+.streakCard:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(212,168,67,0.2); }
+
+.streakIcon { font-size: 28px; animation: gentlePulse 2s ease infinite; }
+
+.streakNum {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 600;
+  color: #6e4f1a;
+  line-height: 1;
+}
+
+.streakLabel { font-size: 11px; color: #9a6e28; margin-top: 2px; font-weight: 500; }
+
+/* Nav */
+.nav { display: flex; flex-direction: column; flex: 1; }
+
+.navSection {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .10em;
+  padding: 0 10px;
+  margin: 14px 0 8px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  color: var(--text-soft);
+  transition: all var(--dur-fast) var(--ease-out);
+  margin-bottom: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.navItem::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 0; height: 0;
+  background: var(--accent-glow);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width var(--dur-mid) ease, height var(--dur-mid) ease;
+}
+
+.navItem:hover::before { width: 300px; height: 300px; }
+.navItem:hover { color: var(--text); }
+.navItem.active {
+  background: linear-gradient(135deg, var(--accent-light), #d8eadc);
+  color: #2a5438;
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px var(--accent-light);
+}
+
+.navItem.active .navIcon { transform: scale(1.1); }
+
+.navIcon {
+  font-size: 17px;
+  width: 22px;
+  text-align: center;
+  transition: transform var(--dur-fast) var(--ease-spring);
+  position: relative;
+  z-index: 1;
+}
+
+.navLabel { position: relative; z-index: 1; }
+
+/* Mood mini */
+.moodMini {
+  padding-top: 14px;
+  border-top: 1px solid var(--border-soft);
+  margin-top: 8px;
+}
+
+.moodMiniLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .10em;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+
+.moodDots { display: flex; gap: 5px; flex-wrap: wrap; }
+
+.moodDot {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--bg2);
+  border: 1.5px solid var(--border-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+
+.moodDot:hover { transform: scale(1.2); }

@@ -1,0 +1,33 @@
+<!--
+  ADD THESE PERMISSIONS to android/app/src/main/AndroidManifest.xml
+  inside the <manifest> tag, before <application>
+-->
+
+<!-- Internet access (required for all API calls) -->
+<uses-permission android:name="android.permission.INTERNET" />
+
+<!-- Microphone (for voice therapy mode) -->
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+<!-- Check network state (for offline fallback) -->
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<!-- Vibration (for haptic feedback) -->
+<uses-permission android:name="android.permission.VIBRATE" />
+
+<!--
+  ADD THIS inside <application> tag
+  This handles the Google OAuth redirect back to the app
+  Replace YOUR_SUPABASE_PROJECT_REF with: jgefpxyasdxcpkwkqsby
+-->
+<activity
+    android:name="com.getcapacitor.plugin.util.CapWebViewClient"
+    android:exported="true">
+    <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <!-- This catches the Supabase OAuth callback -->
+        <data android:scheme="com.lume.mentalwellness" />
+    </intent-filter>
+</activity>

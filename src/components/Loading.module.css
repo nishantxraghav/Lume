@@ -1,0 +1,43 @@
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: linear-gradient(140deg, #e8f0eb 0%, #f4f1ec 50%, #f0e8df 100%);
+}
+
+.logo {
+  font-size: 56px;
+  animation: pulse 2s ease infinite;
+  filter: drop-shadow(0 4px 16px rgba(95,143,110,0.3));
+}
+
+.bar {
+  width: 120px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 10px;
+  animation: loadSlide 1.4s ease-in-out infinite;
+}
+
+@keyframes loadSlide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+.label {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  color: var(--text-soft);
+  font-style: italic;
+}

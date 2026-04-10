@@ -1,0 +1,158 @@
+.wrap {
+  position: relative;
+}
+
+/* ── Trigger pill ── */
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  background: var(--bg);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  transition: all var(--dur-fast) var(--ease-spring);
+  white-space: nowrap;
+}
+
+.pill:hover:not(.disabled) {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: #2a5438;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px var(--accent-glow);
+}
+
+.pill.disabled { opacity: 0.5; }
+
+.pillEmoji { font-size: 16px; line-height: 1; }
+.pillLabel { font-size: 13px; }
+
+.pillChevron {
+  color: var(--text-muted);
+  transition: transform var(--dur-fast) var(--ease-spring);
+  flex-shrink: 0;
+}
+
+.pillChevron.open { transform: rotate(180deg); }
+
+/* ── Popover ── */
+.popover {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 340px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+  overflow: hidden;
+  animation: scaleIn var(--dur-mid) var(--ease-spring) both;
+  transform-origin: top right;
+}
+
+.popoverHeader {
+  padding: 14px 18px 12px;
+  border-bottom: 1.5px solid var(--border-soft);
+  background: var(--bg);
+}
+
+.popoverTitle {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.popoverSub {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ── Mode cards ── */
+.modeCards {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.modeCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  border: none;
+  border-bottom: 1px solid var(--border-soft);
+  background: transparent;
+  text-align: left;
+  transition: background var(--dur-fast) ease;
+  position: relative;
+  width: 100%;
+}
+
+.modeCard:last-child { border-bottom: none; }
+
+.modeCard:hover { background: var(--bg); }
+
+.modeCard.active { /* colors injected inline */ }
+
+/* Active check badge */
+.activeCheck {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modeEmoji {
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  line-height: 1;
+}
+
+.modeInfo { flex: 1; min-width: 0; }
+
+.modeLabel {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 1px;
+  transition: color var(--dur-fast) ease;
+}
+
+.modeTagline {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 5px;
+}
+
+.modeDesc {
+  font-size: 12px;
+  color: var(--text-soft);
+  line-height: 1.5;
+  margin-bottom: 7px;
+}
+
+.modeExample {
+  font-size: 12px;
+  color: var(--text-soft);
+  font-style: italic;
+  border-left: 3px solid var(--border);
+  padding-left: 8px;
+  line-height: 1.5;
+}

@@ -1,0 +1,302 @@
+/* ══════════════════════════════════════════
+   LUME — Global Design System
+   ══════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+:root {
+  --bg:               #f4f1ec;
+  --bg2:              #ece8e1;
+  --card:             #ffffff;
+  --text:             #1a1714;
+  --text-soft:        #7a7470;
+  --text-muted:       #b0aba5;
+  --accent:           #5f8f6e;
+  --accent-2:         #7aaa88;
+  --accent-light:     #bdd5c5;
+  --accent-glow:      rgba(95,143,110,0.18);
+  --accent-warm:      #bf9255;
+  --accent-warm-light:#eddfc8;
+  --danger:           #c46b6b;
+  --border:           #ddd8d0;
+  --border-soft:      #eae6df;
+  --shadow-xs:        0 1px 4px rgba(26,23,20,0.05);
+  --shadow-sm:        0 2px 12px rgba(26,23,20,0.07);
+  --shadow:           0 4px 24px rgba(26,23,20,0.10);
+  --shadow-lg:        0 12px 48px rgba(26,23,20,0.15);
+  --shadow-glow:      0 0 32px rgba(95,143,110,0.20);
+  --radius:           20px;
+  --radius-sm:        12px;
+  --radius-xs:        8px;
+  --sidebar-w:        268px;
+  --font-serif:       'Lora', Georgia, serif;
+  --font-sans:        'DM Sans', system-ui, sans-serif;
+  --ease-spring:      cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:         cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:      cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:         160ms;
+  --dur-mid:          280ms;
+  --dur-slow:         480ms;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ── Custom cursor ── */
+* { cursor: none !important; }
+
+#lume-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 14px; height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width var(--dur-fast) var(--ease-spring),
+              height var(--dur-fast) var(--ease-spring),
+              background var(--dur-fast) ease,
+              opacity var(--dur-fast) ease;
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+
+#lume-cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 38px; height: 38px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+  transition: width var(--dur-mid) var(--ease-out),
+              height var(--dur-mid) var(--ease-out),
+              border-color var(--dur-mid) ease,
+              opacity var(--dur-mid) ease;
+  will-change: transform;
+}
+
+#lume-cursor.hover  { width: 8px; height: 8px; background: var(--accent-warm); }
+#lume-cursor-ring.hover { width: 52px; height: 52px; border-color: var(--accent-warm); opacity: 0.35; }
+#lume-cursor.click  { width: 10px; height: 10px; }
+#lume-cursor-ring.click { width: 28px; height: 28px; opacity: 0.8; }
+#lume-cursor.text   { width: 2px; height: 22px; border-radius: 2px; background: var(--text); }
+#lume-cursor-ring.text  { opacity: 0; }
+
+/* ── Scrollbars ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ── Base elements ── */
+button { font-family: var(--font-sans); border: none; background: none; }
+input, textarea, select { font-family: var(--font-sans); }
+a { color: inherit; text-decoration: none; }
+img { display: block; }
+
+/* ── Selection ── */
+::selection { background: var(--accent-light); color: var(--text); }
+
+/* ════════════════════════════════
+   KEYFRAMES
+   ════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.07); opacity: 0.8; }
+}
+@keyframes gentlePulse {
+  0%,100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50%      { box-shadow: 0 0 0 10px transparent; }
+}
+@keyframes ripple {
+  0%   { transform: scale(0); opacity: 0.6; }
+  100% { transform: scale(4); opacity: 0; }
+}
+@keyframes dotBounce {
+  0%,60%,100% { transform: translateY(0);   opacity: 0.3; }
+  30%          { transform: translateY(-6px); opacity: 1;  }
+}
+@keyframes inhale  { from { transform: scale(1);    } to { transform: scale(1.55); } }
+@keyframes exhale  { from { transform: scale(1.55); } to { transform: scale(1);    } }
+@keyframes spin    { to   { transform: rotate(360deg); } }
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes toastIn  {
+  from { opacity: 0; transform: translateX(-50%) translateY(16px) scale(0.9); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0)    scale(1);   }
+}
+@keyframes toastOut {
+  from { opacity: 1; }
+  to   { opacity: 0; transform: translateX(-50%) translateY(8px); }
+}
+@keyframes floatBg {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  33%      { transform: translateY(-8px) rotate(1deg); }
+  66%      { transform: translateY(4px) rotate(-1deg); }
+}
+@keyframes waveRing {
+  0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.6; }
+  100% { transform: translate(-50%,-50%) scale(2.2); opacity: 0; }
+}
+
+/* ── Utility animation classes ── */
+.anim-fadeUp   { animation: fadeUp   var(--dur-slow) var(--ease-out) both; }
+.anim-fadeIn   { animation: fadeIn   var(--dur-mid)  ease            both; }
+.anim-scaleIn  { animation: scaleIn  var(--dur-mid)  var(--ease-spring) both; }
+.anim-slideLeft { animation: slideInLeft var(--dur-slow) var(--ease-out) both; }
+
+/* Stagger children */
+.stagger > *:nth-child(1) { animation-delay: 0ms;   }
+.stagger > *:nth-child(2) { animation-delay: 60ms;  }
+.stagger > *:nth-child(3) { animation-delay: 120ms; }
+.stagger > *:nth-child(4) { animation-delay: 180ms; }
+.stagger > *:nth-child(5) { animation-delay: 240ms; }
+.stagger > *:nth-child(6) { animation-delay: 300ms; }
+
+/* ── Page transition wrapper ── */
+.page-enter {
+  animation: fadeUp var(--dur-slow) var(--ease-out) both;
+}
+
+/* ══════════════════════════════════════════
+   MOBILE / ANDROID STYLES
+   ══════════════════════════════════════════ */
+
+/* Safe area insets for notched/punched Android phones */
+:root {
+  --sat: env(safe-area-inset-top,    0px);
+  --sar: env(safe-area-inset-right,  0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left,   0px);
+  --kb-height: 0px;   /* set dynamically by Capacitor keyboard plugin */
+}
+
+/* Prevent pull-to-refresh and overscroll on Android WebView */
+html, body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+/* Prevent text selection on UI elements (feels more app-like) */
+button, .nav-item, .mood-emoji-btn {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Tap highlight: remove default blue flash on Android */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Better touch targets — minimum 44×44px */
+button { min-height: 36px; }
+
+/* ── Responsive layout: stack sidebar on small screens ── */
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+
+  /* Hide desktop sidebar */
+  .sidebar { display: none !important; }
+
+  /* Main content fills full width */
+  .main { margin-left: 0 !important; }
+
+  /* Mobile bottom navigation */
+  #mobile-nav {
+    display: flex !important;
+  }
+
+  /* Push content up above mobile nav + keyboard */
+  .main {
+    padding-bottom: calc(56px + var(--sab) + var(--kb-height));
+  }
+
+  /* Header: add top safe area for notch */
+  header {
+    padding-top: calc(16px + var(--sat)) !important;
+  }
+
+  /* Music player bar: full width on mobile */
+  .playerBar {
+    left: 0 !important;
+  }
+
+  /* Insights grid: 1 column on phone */
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Timeline: 2 columns on phone instead of 6 */
+  .timeline {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Chat bubbles: narrower max-width */
+  .msg { max-width: 100% !important; }
+  .msgInner { max-width: 85vw !important; }
+  .bubble { font-size: 14px !important; }
+
+  /* Activity breakdown table */
+  .actCard {
+    grid-template-columns: 24px 24px 1fr 70px 36px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even tighter on small phones */
+  .quickActions { display: none; }
+  .distBars .distRow {
+    grid-template-columns: 100px 1fr 36px 30px !important;
+  }
+}
+
+/* ── Player bar safe area (Android nav bar) ── */
+.playerBar {
+  padding-bottom: calc(12px + var(--sab)) !important;
+}
+
+/* ── Input area: lift above Android keyboard ── */
+.inputArea {
+  padding-bottom: calc(16px + var(--sab)) !important;
+}

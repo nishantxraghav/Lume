@@ -1,0 +1,64 @@
+.page { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+
+.header {
+  padding: 22px 32px;
+  border-bottom: 1.5px solid var(--border-soft);
+  background: var(--card);
+  flex-shrink: 0;
+  animation: fadeDown var(--dur-slow) var(--ease-out) both;
+}
+
+.header h2 { font-family: var(--font-serif); font-size: 22px; font-weight: 500; margin-bottom: 3px; }
+.header p  { font-size: 14px; color: var(--text-soft); }
+
+.body { flex: 1; overflow-y: auto; padding: 28px 32px; scroll-behavior: smooth; }
+
+.sectionLabel {
+  font-size: 11px; font-weight: 700; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: .10em;
+  margin: 22px 0 12px;
+}
+
+.emergencyCard {
+  background: linear-gradient(135deg, #fff5f5, #ffecec);
+  border: 1.5px solid #f0c4c4;
+  border-radius: var(--radius);
+  padding: 26px;
+  margin-bottom: 24px;
+  animation: fadeUp var(--dur-slow) var(--ease-out) both;
+}
+
+.emergencyCard h3 { color: var(--danger); font-family: var(--font-serif); font-size: 19px; margin-bottom: 10px; }
+.emergencyCard p  { font-size: 14px; line-height: 1.7; margin-bottom: 18px; color: var(--text); }
+
+.resourceItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--card);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  animation: fadeUp var(--dur-slow) var(--ease-out) both;
+  transition: all var(--dur-fast) var(--ease-spring);
+}
+
+.resourceItem:hover { transform: translateX(4px); box-shadow: var(--shadow-sm); border-color: var(--border); }
+
+.rIcon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+.rName { font-weight: 600; font-size: 14px; }
+.rNum  { font-size: 22px; font-weight: 700; color: var(--danger); font-family: var(--font-serif); margin: 3px 0; letter-spacing: -0.3px; }
+.rDesc { font-size: 12px; color: var(--text-soft); line-height: 1.5; }
+
+.rememberCard {
+  background: linear-gradient(135deg, #f0f8f2, #e8f5ed);
+  border: 1.5px solid #b4d9c1;
+  border-radius: var(--radius);
+  padding: 26px;
+  margin-top: 24px;
+  animation: fadeUp var(--dur-slow) var(--ease-out) 400ms both;
+}
+
+.rememberCard h3 { color: #2a5438; font-family: var(--font-serif); font-size: 19px; margin-bottom: 10px; }
+.rememberCard p  { font-size: 14px; line-height: 1.75; color: var(--text); }

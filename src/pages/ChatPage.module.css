@@ -1,0 +1,332 @@
+.page { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+
+.header {
+  padding: 18px 32px;
+  border-bottom: 1.5px solid var(--border-soft);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  animation: fadeDown var(--dur-slow) var(--ease-out) both;
+}
+
+.header h2 {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 600;
+  background: var(--accent-glow);
+  padding: 6px 13px;
+  border-radius: 100px;
+  border: 1px solid var(--accent-light);
+}
+
+.dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1.6s ease infinite;
+}
+
+/* Messages */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  scroll-behavior: smooth;
+}
+
+.msg {
+  display: flex;
+  gap: 12px;
+  max-width: 720px;
+}
+
+.msg.ai  { animation: slideInLeft  var(--dur-slow) var(--ease-out) both; }
+.msg.user { align-self: flex-end; flex-direction: row-reverse; animation: slideInRight var(--dur-slow) var(--ease-out) both; }
+
+.msgAvatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  overflow: hidden;
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+
+.msg.ai   .msgAvatar { background: linear-gradient(135deg, var(--accent-light), #d4eadb); }
+.msg.user .msgAvatar { background: var(--accent-warm-light); }
+.msgAvatar:hover { transform: scale(1.1); }
+.msgAvatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+.msgInner { display: flex; flex-direction: column; max-width: 560px; }
+
+.bubble {
+  padding: 14px 18px;
+  border-radius: 22px;
+  font-size: 15px;
+  line-height: 1.72;
+  transition: box-shadow var(--dur-fast) ease;
+}
+
+.msg.ai .bubble {
+  background: var(--card);
+  border: 1.5px solid var(--border-soft);
+  border-top-left-radius: 5px;
+  box-shadow: var(--shadow-xs);
+}
+
+.msg.ai .bubble:hover { box-shadow: var(--shadow-sm); }
+
+.msg.user .bubble {
+  background: linear-gradient(135deg, var(--accent), #4e7a5d);
+  color: #fff;
+  border-top-right-radius: 5px;
+  box-shadow: 0 4px 16px rgba(95,143,110,0.3);
+}
+
+.msgTime {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  align-self: flex-end;
+}
+
+/* Typing */
+.typing {
+  display: flex;
+  gap: 5px;
+  padding: 15px 19px;
+  background: var(--card);
+  border: 1.5px solid var(--border-soft);
+  border-radius: 22px;
+  border-top-left-radius: 5px;
+  box-shadow: var(--shadow-xs);
+  animation: fadeUp var(--dur-mid) var(--ease-out) both;
+}
+
+.typing span {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  display: inline-block;
+  animation: dotBounce 1.2s ease infinite;
+}
+
+.typing span:nth-child(2) { animation-delay: .2s; }
+.typing span:nth-child(3) { animation-delay: .4s; }
+
+/* Input area */
+.inputArea {
+  padding: 14px 32px 20px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1.5px solid var(--border-soft);
+  flex-shrink: 0;
+}
+
+.quickActions {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  animation: fadeUp var(--dur-slow) var(--ease-out) 300ms both;
+}
+
+.quickBtn {
+  padding: 7px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  font-size: 13px;
+  background: var(--bg);
+  color: var(--text-soft);
+  font-weight: 500;
+  transition: all var(--dur-fast) var(--ease-spring);
+  white-space: nowrap;
+}
+
+.quickBtn:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: #2a5438;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px var(--accent-glow);
+}
+
+.inputRow { display: flex; gap: 10px; align-items: flex-end; }
+
+.input {
+  flex: 1;
+  padding: 13px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  font-size: 15px;
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  resize: none;
+  max-height: 130px;
+  min-height: 48px;
+  line-height: 1.55;
+  transition: border-color var(--dur-fast) ease, box-shadow var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+  background: var(--card);
+}
+
+.sendBtn {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--accent), #4e7a5d);
+  border-radius: 14px;
+  color: #fff;
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--dur-fast) var(--ease-spring);
+  flex-shrink: 0;
+  box-shadow: 0 3px 12px rgba(95,143,110,0.3);
+}
+
+.sendBtn:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(95,143,110,0.4);
+}
+
+.sendBtn:active:not(:disabled) { transform: scale(0.96); }
+.sendBtn:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; box-shadow: none; }
+
+/* ── Pre-Breakdown: Support message styles ── */
+.supportMsg .msgInner { max-width: 580px; }
+
+.supportBubble {
+  background: linear-gradient(135deg, #f0f7f2, #e6f2ea) !important;
+  border: 1.5px solid var(--accent-light) !important;
+  box-shadow: 0 4px 18px rgba(95,143,110,0.14) !important;
+  animation: supportPop var(--dur-slow) var(--ease-spring) both !important;
+}
+
+@keyframes supportPop {
+  0%   { opacity: 0; transform: scale(0.94) translateY(8px); }
+  60%  { transform: scale(1.02) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.severityBadge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  animation: fadeIn var(--dur-mid) ease both;
+}
+
+/* Badge colours per severity */
+.badge_crisis   { background: #fff0f0; color: var(--danger);  border: 1px solid #f5c4c4; }
+.badge_high     { background: #fffbf0; color: #b07a10;        border: 1px solid #f0d990; }
+.badge_moderate { background: #f0f7f2; color: #3a6448;        border: 1px solid var(--accent-light); }
+.badge_low      { background: #f4f8fb; color: #4a6e8a;        border: 1px solid #b8d4e8; }
+
+/* ── Feature 2: Memory Hint bubble ── */
+.memoryHint .msgInner { max-width: 580px; }
+
+.memoryBubble {
+  background: linear-gradient(135deg, #fdf6e8, #faecd4) !important;
+  border: 1.5px solid #e8d090 !important;
+  box-shadow: 0 4px 18px rgba(196,152,94,0.14) !important;
+  animation: supportPop var(--dur-slow) var(--ease-spring) both !important;
+}
+
+.badge_memory {
+  background: #fdf3dc;
+  color: #9a6e20;
+  border: 1px solid #e8d090;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  animation: fadeIn var(--dur-mid) ease both;
+}
+
+/* ── Feature 4: header layout with toggle ── */
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Feature 4: mode switch system notice ── */
+.systemNotice {
+  align-self: center;
+  padding: 6px 16px;
+  border-radius: 100px;
+  border: 1.5px solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  animation: fadeIn var(--dur-mid) ease both;
+  max-width: fit-content;
+  letter-spacing: .01em;
+}
+
+/* ── Feature 5: Cognitive Distortion bubble ── */
+.distortionFrame .msgInner { max-width: 600px; }
+
+.distortionBubble {
+  /* color set inline per-distortion; base styles: */
+  border-width: 1.5px !important;
+  border-style: solid !important;
+  animation: supportPop var(--dur-slow) var(--ease-spring) both !important;
+  font-style: italic;
+}
+
+/* Badge row above the bubble */
+.distortionBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 7px;
+  animation: fadeIn var(--dur-mid) ease both;
+}
+
+.distortionBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1.5px solid transparent;
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+
+/* ── Feature 6: Voice mode row in input area ── */
+.voiceRow {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 10px;
+}

@@ -1,0 +1,189 @@
+.page { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+
+.header {
+  padding: 22px 32px;
+  border-bottom: 1.5px solid var(--border-soft);
+  background: var(--card);
+  flex-shrink: 0;
+  animation: fadeDown var(--dur-slow) var(--ease-out) both;
+}
+
+.header h2 { font-family: var(--font-serif); font-size: 22px; font-weight: 500; margin-bottom: 3px; }
+.header p  { font-size: 14px; color: var(--text-soft); }
+
+.body { flex: 1; overflow-y: auto; padding: 28px 32px; scroll-behavior: smooth; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--border-soft);
+  transition: all var(--dur-mid) var(--ease-spring);
+  animation: fadeUp var(--dur-slow) var(--ease-out) both;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-mid) var(--ease-out);
+}
+
+.card:hover::before { transform: scaleX(1); }
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: var(--accent-light);
+}
+
+.exIcon {
+  font-size: 34px;
+  margin-bottom: 12px;
+  transition: transform var(--dur-mid) var(--ease-spring);
+  display: inline-block;
+}
+
+.card:hover .exIcon { transform: scale(1.15) rotate(-5deg); }
+
+.card h4 { font-family: var(--font-serif); font-size: 17px; font-weight: 500; margin-bottom: 8px; }
+.card p  { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
+.dur     { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 14px; }
+
+/* ── Breathing screen ── */
+.breathWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  gap: 22px;
+  animation: fadeUp var(--dur-slow) var(--ease-out) both;
+}
+
+.breathTitle {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.breathSub { font-size: 14px; color: var(--text-soft); text-align: center; max-width: 340px; line-height: 1.6; }
+
+.circleWrap {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Outer glow ring */
+.circleWrap::before {
+  content: '';
+  position: absolute;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+  animation: gentlePulse 3s ease infinite;
+}
+
+.circle {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-light), var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  box-shadow: 0 8px 32px rgba(95,143,110,0.35);
+  position: relative;
+  z-index: 1;
+  transition: transform var(--dur-mid) ease;
+}
+
+.circle.inhale { animation: inhale 4s ease-in-out forwards; }
+.circle.exhale { animation: exhale 8s ease-in-out forwards; }
+.circle.hold   { transform: scale(1.55); }
+
+.countdown {
+  font-family: var(--font-serif);
+  font-size: 54px;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+  min-width: 60px;
+  text-align: center;
+}
+
+.instruction { font-size: 15px; color: var(--text-soft); font-style: italic; text-align: center; }
+
+.breathBtns { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 8px; }
+
+.startBtn {
+  padding: 14px 36px;
+  background: linear-gradient(135deg, var(--accent), #4e7a5d);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  transition: all var(--dur-fast) var(--ease-spring);
+  box-shadow: 0 4px 16px rgba(95,143,110,0.3);
+}
+
+.startBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(95,143,110,0.4); }
+
+.backBtn {
+  background: none;
+  font-size: 14px;
+  color: var(--text-soft);
+  text-decoration: underline;
+  transition: color var(--dur-fast) ease;
+}
+
+.backBtn:hover { color: var(--text); }
+
+/* ── Feature 6: Voice breathing ── */
+.breathHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.voiceBreathToggle {
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-soft);
+  transition: all var(--dur-fast) var(--ease-spring);
+}
+
+.voiceBreathToggle:hover { border-color: var(--accent); color: var(--text); }
+
+.voiceBreathOn {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: #2a5438;
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+.preloadNote {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 500;
+  animation: fadeIn var(--dur-mid) ease both;
+}

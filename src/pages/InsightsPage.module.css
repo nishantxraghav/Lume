@@ -1,0 +1,466 @@
+.page { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+
+/* ── Header ── */
+.header {
+  padding: 20px 32px;
+  border-bottom: 1.5px solid var(--border-soft);
+  background: var(--card);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: fadeDown var(--dur-slow) var(--ease-out) both;
+}
+
+.header h2 { font-family: var(--font-serif); font-size: 22px; font-weight: 500; margin-bottom: 3px; }
+.header p  { font-size: 14px; color: var(--text-soft); }
+
+.refreshBtn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-soft);
+  transition: all var(--dur-fast) var(--ease-spring);
+}
+
+.refreshBtn:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); transform: rotate(60deg) scale(1.1); }
+
+/* ── Sub-tabs ── */
+.subTabs {
+  display: flex;
+  gap: 4px;
+  padding: 10px 32px;
+  border-bottom: 1.5px solid var(--border-soft);
+  background: var(--card);
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+
+.subTab {
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-soft);
+  border: 1.5px solid transparent;
+  transition: all var(--dur-fast) var(--ease-spring);
+  white-space: nowrap;
+  background: none;
+}
+
+.subTab:hover { background: var(--bg2); color: var(--text); }
+.subTabActive {
+  background: var(--accent-light);
+  color: #2a5438;
+  border-color: var(--accent-light);
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+/* ── Body ── */
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px;
+  scroll-behavior: smooth;
+  min-height: 0;          /* critical: prevents flex child from overflowing */
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Sidebar is 268px wide — so effective width is viewport - 268px */
+@media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px)  { .grid { grid-template-columns: 1fr; } }
+
+/* ── Base card ── */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--border-soft);
+  transition: box-shadow var(--dur-mid) ease, transform var(--dur-mid) var(--ease-spring);
+  min-width: 0;            /* allow grid child to shrink */
+  overflow: hidden;        /* prevent text from escaping card */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card:hover { box-shadow: var(--shadow); }
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.cardSub { font-size: 13px; color: var(--text-soft); margin-bottom: 20px; }
+
+/* ── Summary card ── */
+.summaryCard {
+  background: linear-gradient(135deg, #f0f7f2, #e8f5ed);
+  border-color: var(--accent-light);
+  display: block;          /* simple block — no flex issues */
+  padding: 22px 24px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.summaryInner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.summaryIcon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  line-height: 1;
+}
+
+.summaryText {
+  font-size: 15px;
+  line-height: 1.70;
+  color: var(--text);
+  font-style: italic;
+  /* The key fixes: allow the element to shrink and text to wrap */
+  flex: 1 1 0%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.summaryMeta {
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-top: 10px;
+}
+
+/* ── Stat cards ── */
+.statCard {
+  border-top: 3px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statIcon  { font-size: 28px; margin-bottom: 4px; }
+.statLabel { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .07em; }
+.statValue { font-family: var(--font-serif); font-size: 22px; font-weight: 500; line-height: 1.2; }
+.statSub   { font-size: 13px; color: var(--text-soft); }
+
+/* ── Trend badge ── */
+.trendBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 6px;
+  width: fit-content;
+}
+
+.trend_up, .trend_improving {
+  background: #f0f7f2; color: #3a6448; border: 1px solid var(--accent-light);
+}
+.trend_down, .trend_declining {
+  background: #fff0f0; color: #a05050; border: 1px solid #f0c4c4;
+}
+.trend_stable { background: var(--bg2); color: var(--text-soft); border: 1px solid var(--border); }
+
+/* ── Weekly chart ── */
+.weeklyChart {
+  display: flex;
+  gap: 6px;
+  height: 100px;
+  align-items: flex-end;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.dayCol {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  height: 100%;
+}
+
+.dayBarWrap {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: var(--bg2);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  /* Explicit max-height so bars don't stretch */
+  max-height: 80px;
+}
+
+.dayBar {
+  width: 100%;
+  border-radius: 8px;
+  min-height: 4px;
+  position: relative;
+  transition: height 0.8s var(--ease-out);
+  animation: barGrow 0.8s var(--ease-out) both;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+@keyframes barGrow {
+  from { height: 0 !important; }
+}
+
+.dayBarEmoji { font-size: 13px; line-height: 1; }
+.dayBarEmpty { width: 100%; height: 4px; background: var(--border); border-radius: 8px; }
+.dayLabel    { font-size: 11px; font-weight: 600; color: var(--text-muted); }
+.dayCount    { font-size: 10px; color: var(--text-muted); background: var(--bg2); padding: 1px 5px; border-radius: 100px; }
+
+/* ── Mood distribution ── */
+.distBars { display: flex; flex-direction: column; gap: 12px; }
+
+.distRow {
+  display: grid;
+  grid-template-columns: 130px 1fr 44px 36px;
+  align-items: center;
+  gap: 10px;
+  animation: fadeUp var(--dur-mid) var(--ease-out) both;
+}
+
+.distLabel {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.distBarWrap {
+  height: 12px;
+  background: var(--bg2);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.distBar {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 1s var(--ease-out);
+  animation: barSlide 1s var(--ease-out) both;
+}
+
+@keyframes barSlide { from { width: 0 !important; } }
+
+.distPct   { font-size: 13px; font-weight: 700; color: var(--text); text-align: right; }
+.distCount { font-size: 12px; color: var(--text-muted); }
+
+/* ── Mood callout ── */
+.moodCallout {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-left: 4px solid var(--accent);
+}
+
+.moodCalloutLabel { font-size: 12px; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: .06em; }
+.moodCalloutValue { font-family: var(--font-serif); font-size: 26px; font-weight: 500; margin: 2px 0; }
+.moodCalloutSub   { font-size: 13px; color: var(--text-soft); }
+
+/* ── Activity hero ── */
+.activityHero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, var(--bg), var(--bg2));
+  border-left: 4px solid var(--accent);
+}
+
+.actHeroIcon  { font-size: 52px; }
+.actHeroLabel { font-size: 11px; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 4px; }
+.actHeroValue { font-family: var(--font-serif); font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+.actHeroSub   { font-size: 13px; color: var(--text-soft); }
+
+/* ── Stacked bar ── */
+.stackedBar {
+  display: flex;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  gap: 2px;
+  margin-bottom: 16px;
+}
+
+.stackSegment {
+  transition: width 1s var(--ease-out);
+  border-radius: 4px;
+  animation: barSlide 1s var(--ease-out) both;
+}
+
+.stackLegend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 20px; }
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+}
+
+.legendDot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legendPct { font-weight: 600; color: var(--text-soft); font-size: 12px; }
+
+/* ── Activity cards ── */
+.activityCards { display: flex; flex-direction: column; gap: 10px; }
+
+.actCard {
+  display: grid;
+  grid-template-columns: 28px 28px 1fr 120px 44px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  transition: all var(--dur-fast) ease;
+  animation: fadeUp var(--dur-mid) var(--ease-out) both;
+}
+
+.actCard:hover { background: var(--bg2); transform: translateX(3px); }
+
+.actCardRank  { font-size: 12px; font-weight: 700; }
+.actCardEmoji { font-size: 20px; }
+.actCardLabel { font-size: 13px; font-weight: 500; }
+.actCardBar   { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+.actCardPct   { font-size: 13px; font-weight: 700; text-align: right; color: var(--text-soft); }
+
+/* ── Time callouts ── */
+.timeCallout {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.timeCalloutIcon   { font-size: 44px; flex-shrink: 0; margin-top: 4px; }
+.timeCalloutBadge  { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; width: fit-content; margin-bottom: 8px; }
+.timeCalloutValue  { font-family: var(--font-serif); font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+.timeCalloutSub    { font-size: 13px; color: var(--text-soft); margin-bottom: 10px; }
+.timeCalloutTip    { font-size: 13px; color: var(--text-soft); line-height: 1.6; font-style: italic; border-left: 3px solid var(--border); padding-left: 10px; }
+
+.worstTime { border-left: 4px solid #c46b6b33; }
+.bestTime  { border-left: 4px solid #5f8f6e33; }
+
+/* ── Timeline ── */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.timeBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 14px 8px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-soft);
+  background: var(--bg);
+  gap: 5px;
+  transition: all var(--dur-fast) ease;
+  animation: scaleIn var(--dur-mid) var(--ease-spring) both;
+}
+
+.timeBlock:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+
+.worstBlock { border-color: #f0c4c4; background: #fff8f8; box-shadow: 0 2px 10px rgba(196,107,107,0.1); }
+.bestBlock  { border-color: var(--accent-light); background: #f4f9f5; box-shadow: 0 2px 10px var(--accent-glow); }
+
+.timeBlockEmoji { font-size: 24px; }
+.timeBlockLabel { font-size: 12px; font-weight: 600; }
+.timeBlockDesc  { font-size: 11px; color: var(--text-muted); }
+.timeBlockTag   { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-top: 4px; }
+
+/* ── Empty / Error / Skeleton ── */
+.emptyState {
+  text-align: center;
+  padding: 64px 24px;
+  animation: fadeUp var(--dur-slow) var(--ease-out) both;
+}
+
+.emptyIcon { font-size: 56px; margin-bottom: 18px; opacity: 0.6; }
+.emptyState h3 { font-family: var(--font-serif); font-size: 22px; margin-bottom: 10px; }
+.emptyState p  { font-size: 15px; color: var(--text-soft); line-height: 1.7; max-width: 420px; margin: 0 auto; }
+
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 12px;
+  color: var(--text-soft);
+  font-size: 14px;
+}
+
+.errorState div  { font-size: 36px; }
+.errorState h3   { font-family: var(--font-serif); font-size: 18px; color: var(--text); }
+.errorState button {
+  padding: 10px 22px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background var(--dur-fast) ease;
+  margin-top: 4px;
+}
+.errorState button:hover { background: #4e7a5d; }
+
+.skeletonHeader {
+  height: 80px;
+  background: var(--card);
+  border-bottom: 1.5px solid var(--border-soft);
+  background: linear-gradient(90deg, var(--bg2) 0%, var(--card) 50%, var(--bg2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease infinite;
+}
+
+.skeletonCard {
+  height: 140px;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--bg2) 0%, var(--card) 50%, var(--bg2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease infinite;
+}
+
+.skeletonCard:nth-child(2) { animation-delay: .1s; }
+.skeletonCard:nth-child(3) { animation-delay: .2s; }
+.skeletonCard:nth-child(4) { animation-delay: .3s; }
+.skeletonCard:nth-child(5) { animation-delay: .4s; }
